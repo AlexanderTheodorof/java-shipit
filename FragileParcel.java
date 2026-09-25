@@ -1,0 +1,3 @@
+class FragileParcel {           // хрупкая посылка
+    
+}
