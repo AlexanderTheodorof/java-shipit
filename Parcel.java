@@ -1,10 +1,10 @@
 abstract class Parcel {
     protected final static int deliveryCost = 1;
-    String description;
-    String deliveryAddress;
-    String type; 
-    int    weight;
-    int    sendDay;
+    protected String description;
+    protected String deliveryAddress;
+    protected String type; 
+    protected int    weight;
+    protected int    sendDay;
     
     
 
@@ -42,5 +42,9 @@ abstract class Parcel {
             + "Стоимость отправления:\t" + calculateDeliveryCost();
                       
         return objectDescript;
-    } 
+    }
+
+    public int getWeight() {
+        return weight; 
+    }
 }

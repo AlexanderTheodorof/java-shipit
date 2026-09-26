@@ -1,4 +1,4 @@
-class FragileParcel extends Parcel {           // хрупкая посылка
+class FragileParcel extends Parcel implements Tracable {           // хрупкая посылка
 
     FragileParcel(String description,
                   String deliveryAddress,
@@ -25,5 +25,10 @@ class FragileParcel extends Parcel {           // хрупкая посылка
         String objectDescript = super.toString() + "\n"
             + "Хрупкая посылка была обернута в защитную пленку.";
         return objectDescript;
+    }
+
+    @Override
+    public void reportStatus(String newLocation) {
+        System.out.println(type + " изменила местоположение на " + newLocation);
     }
 }

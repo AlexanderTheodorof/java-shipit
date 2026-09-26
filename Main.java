@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 class Main {
     public static void main(String[] args) {
         String descript1        = "Книга Божественная комедия";
@@ -15,7 +17,12 @@ class Main {
         StandardParcel   standartParcel   = new StandardParcel  (descript1, deliveryAddress, weight1, sendDay1            );
         PerishableParcel perishableParcel = new PerishableParcel(descript2, deliveryAddress, weight2, sendDay2, timeToLive);
         FragileParcel    fragileParcel    = new FragileParcel   (descript3, deliveryAddress, weight3, sendDay3            );
-        
+
+        ArrayList<Tracable> tracebleParcels = new ArrayList<>();
+        tracebleParcels.add(fragileParcel);
+        for (Tracable tracebleParcel : tracebleParcels) {
+            tracebleParcel.reportStatus("Петровско-Разумовская");
+        }
         System.out.println(standartParcel);
         System.out.println("~".repeat(20));
         System.out.println(perishableParcel);
@@ -33,5 +40,7 @@ class Main {
         standartParcel.diliver();
         perishableParcel.diliver();
         fragileParcel.diliver();
+
+        fragileParcel.reportStatus("Петровско-разумовская");
     }
 }
