@@ -29,6 +29,6 @@ class FragileParcel extends Parcel implements Tracable {           // хрупк
 
     @Override
     public void reportStatus(String newLocation) {
-        System.out.println(type + " изменила местоположение на " + newLocation);
+        System.out.println(type + " " + description + " изменила местоположение на " + newLocation);
     }
 }
