@@ -20,12 +20,12 @@ abstract class Parcel {
     }
     void packageItem() { // упаковать
         // packageItem — «упаковать». Для стандартных и скоропортящихся посылок этот метод должен просто выводить на экран текст Посылка <<XXX>> упакована, а для хрупких посылок — строку Посылка <<XXX>> обёрнута в защитную плёнку, а затем Посылка <<XXX>> упакована, где XXX — описание посылки.
-        System.out.println("Посылка " + description + " упакована"); 
+        System.out.println("Посылка '" + description + "' упакована"); 
     }            
     
-    public void diliver() {
+    public void deliver() {
         // deliver — «доставить». Этот метод будет осуществлять доставку посылки адресату. Он должен выводить на экран текст Посылка <<XXX>> доставлена по адресу YYY, где ХХХ — описание посылки, а YYY — адрес назначения.
-        System.out.println("Посылка " + description + " доставлена по адресу " + deliveryAddress); 
+        System.out.println("Посылка '" + description + "' доставлена по адресу " + deliveryAddress); 
     }
     
     public int calculateDeliveryCost() { // рассчитать стоимость отправки
