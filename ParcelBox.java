@@ -26,4 +26,17 @@ class ParcelBox <T extends Parcel> {
     public int getMaxWeight() {
         return maxWeight; 
     }
+
+    public int getNumberOfParcels(){
+        return parcels.size(); 
+    }
+
+    public String getParcelsBoxType() {
+        if (!parcels.isEmpty()) {
+            return parcels.get(0).getType();
+        } else {
+            return "";
+        }
+        
+    }
 }

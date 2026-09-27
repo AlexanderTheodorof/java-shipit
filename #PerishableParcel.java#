@@ -1,0 +1,32 @@
+class PerishableParcel extends Parcel {        // скоропортящаяся посылка
+    int timeToLive;             // срок годности
+
+    PerishableParcel(String description,
+                     String deliveryAddress,
+                     int weight,
+                     int sendDay,
+                     int timeToLive) {
+        super(description, deliveryAddress, weight, sendDay);
+        this.timeToLive = timeToLive;
+        super.type = "Скоропортящаяся посылка";
+    }
+
+    @Override
+    public int getDeliveryCost() {
+        return super.getDeliveryCost() + 2;
+    }
+
+    @Override
+    public String toString() {
+        String objectDescript = super.toString() + "\n"
+            + "Срок годности посылки:\t" + timeToLive;
+        return objectDescript;
+    }
+    public boolean isExpired(int currentDay) {
+        if (sendDay + currentDay > timeToLive) {
+            return false; 
+        } else {
+            return true;
+        }
+    }
+}

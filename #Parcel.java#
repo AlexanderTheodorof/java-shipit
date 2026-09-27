@@ -1,0 +1,47 @@
+abstract class Parcel {
+    protected final static int deliveryCost = 1;
+    protected String description;
+    protected String deliveryAddress;
+    protected String type; 
+    protected int    weight;
+    protected int    sendDay;
+    
+    
+
+    Parcel(String description, String deliveryAddress, int weight, int sendDay) {
+        this.description     = description;
+        this.deliveryAddress = deliveryAddress;
+        this.weight          = weight;
+        this.sendDay         = sendDay;
+    }
+
+    public int getDeliveryCost() {
+        return deliveryCost;
+    }
+    void packageItem() { // упаковать
+        System.out.println("Посылка '" + description + "' упакована"); 
+    }            
+    
+    public void deliver() {
+        System.out.println("Посылка '" + description + "' доставлена по адресу " + deliveryAddress); 
+    }
+    
+    public int calculateDeliveryCost() { // рассчитать стоимость отправки
+        return getDeliveryCost()*weight; 
+    }
+
+    @Override
+    public String toString() {
+        String objectDescript = type               + "\n" 
+            + description                          + "\n" 
+            + "Вес посылки:\t"           + weight  + "\n"
+            + "Посылка отправлена:\t"    + sendDay + "\n"
+            + "Стоимость отправления:\t" + calculateDeliveryCost();
+                      
+        return objectDescript;
+    }
+
+    public int getWeight() {
+        return weight; 
+    }
+}

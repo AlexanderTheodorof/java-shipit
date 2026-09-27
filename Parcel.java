@@ -47,4 +47,8 @@ abstract class Parcel {
     public int getWeight() {
         return weight; 
     }
+
+    public String getType(){
+        return  type;
+    }
 }
