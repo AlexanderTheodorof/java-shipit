@@ -25,7 +25,7 @@ abstract class Parcel {
     
     public void deliver() {
         // deliver — «доставить». Этот метод будет осуществлять доставку посылки адресату. Он должен выводить на экран текст Посылка <<XXX>> доставлена по адресу YYY, где ХХХ — описание посылки, а YYY — адрес назначения.
-        System.out.println("Посылка '" + description + "' доставлена по адресу " + deliveryAddress); 
+        System.out.println("Посылка '" + description + "' доставлена по адресу '" + deliveryAddress + "'."); 
     }
     
     public int calculateDeliveryCost() { // рассчитать стоимость отправки
@@ -51,4 +51,5 @@ abstract class Parcel {
     public String getType(){
         return  type;
     }
+
 }

@@ -22,7 +22,7 @@ public class DeliveryApp {
         
         while (running) {
             showMenu();
-            int choice = Integer.parseInt(scanner.nextLine());
+            int choice = Integer.parseInt(scanner.nextLine().strip());
 
             switch (choice) {
                 case 1:
@@ -41,6 +41,7 @@ public class DeliveryApp {
                     showBoxContent();
                     break;
                 case 0:
+                    System.out.println("Хорошего дня. Посылки будут доставлены в срок 0/");
                     running = false;
                     break;
                 default:
@@ -50,6 +51,7 @@ public class DeliveryApp {
     }
 
     private static void showMenu() {
+        System.out.println("=".repeat(20));
         System.out.println("Выберите действие:");
         System.out.println("1 —  Добавить посылку");
         System.out.println("2 —  Отправить все посылки");
@@ -57,6 +59,7 @@ public class DeliveryApp {
         System.out.println("4 -- Посмотреть рассположение всех отслеживаемых посылок");
         System.out.println("5 -- Показать содержимое коробки");
         System.out.println("0 —  Завершить");
+        System.out.println("=".repeat(20));
     }
 
     // реализуйте методы ниже
@@ -65,20 +68,22 @@ public class DeliveryApp {
         // Подсказка: спросите тип посылки и необходимые поля, создайте объект и добавьте в allParcels
         boolean running = true;
         
-        String description     = addParcelsUserInputString("Что вы хотите отправить?");
-        String deliveryAddress = addParcelsUserInputString("Введите адрес получателя");
+        String description     = addParcelsUserInputString("Описание посылки: ");
+        String deliveryAddress = addParcelsUserInputString("Введите адрес получателя:");
         int weight             = addParcelsUserInputInt("Каков вес посылки? Введите целое положительное число: "); 
         int sendDay            = addParcelsUserInputInt("Когда вы хотите отправить посылку? Введите день: ");
         
         while(running) {
+            System.out.println("#".repeat(20));
             System.out.println("Какой тип посылки вы хотите отправить?");
             System.out.println("1. Обычную");
             System.out.println("2. Хрупкую");
             System.out.println("3. Скоропортящуюся");
             System.out.println("4. Выход");
-            int choice = Integer.parseInt(scanner.nextLine());
+            int choice = Integer.parseInt(scanner.nextLine().strip());
             switch (choice) {
                 case 1:
+                    System.out.println("_".repeat(20));
                     StandardParcel standardParcel = new StandardParcel(description, deliveryAddress, weight, sendDay); 
                     allParcels.add(standardParcel);
                     standardParcelBox.addParcel(standardParcel);
@@ -88,6 +93,7 @@ public class DeliveryApp {
                     break;
                 case 2:
                     FragileParcel fragileParcel = new FragileParcel(description, deliveryAddress, weight, sendDay);
+                    System.out.println("_".repeat(20));
                     allParcels.add(fragileParcel);
                     tracableParcels.add(fragileParcel);
                     fragileParcelBox.addParcel(fragileParcel);
@@ -96,6 +102,7 @@ public class DeliveryApp {
                     running = false;
                     break;
                 case 3:
+                    System.out.println("_".repeat(20));
                     int timeToLive  = addParcelsUserInputInt("Введите срок годности посылки в днях: ");
                     PerishableParcel perishableParcel = new PerishableParcel(description, deliveryAddress, weight, sendDay, timeToLive);
                     allParcels.add(perishableParcel);
@@ -104,6 +111,9 @@ public class DeliveryApp {
                     System.out.println("_".repeat(20));
                     running = false;
                     break;
+                case 4:
+                    running = false;
+                    break; 
                 default:
                     System.out.println("Такого типа посылки не существует. Введите числа от 1 до 3.");
             }
@@ -114,9 +124,15 @@ public class DeliveryApp {
     
     private static void sendParcels() {
         // Пройти по allParcels, вызвать packageItem() и deliver()
-        for (Parcel parcel : allParcels) {
-            parcel.packageItem();
-            parcel.deliver();
+        if (allParcels.isEmpty()) {
+            System.out.println("Посылок нет");
+        } else {
+            for (Parcel parcel : allParcels) {
+                System.out.println("->".repeat(10));
+                parcel.packageItem();
+                parcel.deliver();
+                System.out.println("->".repeat(10));
+            }
         }
     }
 
@@ -130,9 +146,23 @@ public class DeliveryApp {
     }
 
     private static void showLocationAllTracableParcels() {
-        for (Tracable tracable : tracableParcels) {
-            System.out.println("Введите новое местоположение отслеживаемой посылки");
-            tracable.reportStatus(scanner.nextLine());
+        if (tracableParcels.isEmpty()) {
+            System.out.println("*".repeat(20)); 
+            System.out.println("Отслеживаемых посылок нет.");
+            System.out.println("*".repeat(20)); 
+        } else {
+            int i = 1; 
+            System.out.println("*".repeat(20));
+            System.out.println("В списке отслеживаемых посылок " + tracableParcels.size() + " предметов");
+            for (Tracable tracable : tracableParcels) {
+                System.out.println("*".repeat(20));
+                System.out.println(i + ". Введите новое местоположение отслеживаемой посылки\n" + tracable);
+                System.out.println("~>".repeat(10));
+                System.out.print("Новое местопложение: ");
+                tracable.reportStatus(scanner.nextLine());
+                System.out.println("*".repeat(20));
+                i++;
+            }
         }
     }
 
@@ -140,7 +170,7 @@ public class DeliveryApp {
         boolean runnig = true;
         while(runnig) {
             showMenuBoxContent();
-            int choice = Integer.parseInt(scanner.nextLine());
+            int choice = Integer.parseInt(scanner.nextLine().strip());
             switch (choice) {
                 case 1:
                     boxContent(standardParcelBox);
@@ -160,31 +190,40 @@ public class DeliveryApp {
         }
     }
     private static void showMenuBoxContent() {
+        System.out.println("+".repeat(20));
         System.out.println("Содержимое какой коробки вы хотите посмотреть?");
         System.out.println("1. Коробка со стандартными посылками");
         System.out.println("2. Коробка с хрупкими посылками");
         System.out.println("3. Коробка со скоропортящимися посылками");
         System.out.println("0. Выход");
+        System.out.println("+".repeat(20));
     }
     private static <T extends Parcel> void boxContent(ParcelBox<T> parcelBox){
-        int i = 0;
         int parcelsNumberInBox = parcelBox.getNumberOfParcels();
         String parcelsTypeInBox = parcelBox.getParcelsBoxType();
-        System.out.println("Это коробка для посылок типа '" + parcelsTypeInBox +"'. В ней " + parcelsNumberInBox + " предметов.");
-        for(T parcel : parcelBox.getAllParcels()) {
-            System.out.println("Посылка №" + (i+1));
+        int i = 1;
+        if (parcelsNumberInBox == 0) {
+            System.out.println("Эта коробка для посылок пуста.");
+        } else {
+            System.out.println("Это коробка для посылок типа '" + parcelsTypeInBox +"'. В ней " + parcelsNumberInBox + " предметов.");
             System.out.println("=".repeat(20));
-            System.out.println(parcel);
-            System.out.println("=".repeat(20));
-            i++; 
+            for(T parcel : parcelBox.getAllParcels()) {
+                System.out.println("Посылка №" + i);
+                System.out.println("=".repeat(20));
+                System.out.println(parcel);
+                System.out.println("=".repeat(20));
+                i++; 
+            }
         }
     }
     
     private static String addParcelsUserInputString(String enterDataHello) {
-        String userStringInput = ""; 
+        String userStringInput = "";
+        System.out.println("_".repeat(20));
         System.out.println(enterDataHello);
         while (true) {
             userStringInput = scanner.nextLine();
+            System.out.println("_".repeat(20));
             if (userStringInput.equals("")) {
                 System.out.println("Нужно ввести не пустую строку :3");
             } else {
@@ -195,14 +234,17 @@ public class DeliveryApp {
 
     private static int addParcelsUserInputInt(String enterDataHello) {
         int positiveNumber = 0;
-        System.out.print(enterDataHello);
+        System.out.println("_".repeat(20));
+        System.out.println(enterDataHello);
         while(true) {
-            positiveNumber = Integer.parseInt(scanner.nextLine());
+            positiveNumber = Integer.parseInt(scanner.nextLine().strip());
+            System.out.println("_".repeat(20));
             if (positiveNumber > 0) {
                 return positiveNumber;
             } else {
                 System.out.println("Введите положительное число");
             }
         }
+        
     }
 }
