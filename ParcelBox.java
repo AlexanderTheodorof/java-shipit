@@ -12,10 +12,12 @@ class ParcelBox <T extends Parcel> {
 
     public void addParcel(T parcel) {
         if (sumWeight + parcel.getWeight() > maxWeight) {
-            System.out.println("Максимальный вес упаковки превышен. Добавьте посылку в другую коробку.");
+            System.out.println("Посылка весит " + parcel.getWeight() +"кг.");
+            System.out.println("В коробке осталось место только для " + (maxWeight - sumWeight) + "кг.");
         } else {
             parcels.add(parcel);
             sumWeight += parcel.getWeight();
+            System.out.println("Посылка добавлена в корбку для посылок типа '" + getParcelsBoxType() + "'.");
         }
     }
 

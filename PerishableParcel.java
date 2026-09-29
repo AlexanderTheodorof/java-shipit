@@ -13,7 +13,7 @@ class PerishableParcel extends Parcel {        // скоропортящаяся
 
     @Override
     public int getDeliveryCost() {
-        return super.getDeliveryCost() + 2;
+        return 3;
     }
 
     @Override

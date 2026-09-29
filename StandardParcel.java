@@ -10,6 +10,6 @@ class StandardParcel extends Parcel {
 
     @Override
     public int getDeliveryCost() {
-        return super.getDeliveryCost() + 1; 
+        return 2; 
     }
 }

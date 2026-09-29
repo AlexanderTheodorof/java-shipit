@@ -10,7 +10,7 @@ class FragileParcel extends Parcel implements Tracable {           // хрупк
 
     @Override
     public int getDeliveryCost() {
-        return super.getDeliveryCost() + 3; 
+        return 4; 
     }
     
     @Override
